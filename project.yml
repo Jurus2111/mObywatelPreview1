@@ -8,7 +8,6 @@ targets:
     deploymentTarget: "15.0"
     sources:
       - path: iOS/App/DesignSystemPreview/DesignSystemPreview
-      - path: iOS/Sources
     info:
       properties:
         UILaunchScreen: {}
