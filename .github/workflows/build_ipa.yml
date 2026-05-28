@@ -19,13 +19,6 @@ jobs:
       - name: Install xcodegen
         run: brew install xcodegen
 
-      - name: Debug - List directories
-        run: |
-          xcodegen --version
-          echo "=== project.yml ==="
-          cat project.yml
-          echo "=== Source dir ==="
-          ls -la "iOS/App/DesignSystemPreview/DesignSystemPreview/"
 
       - name: Generate Xcode Project
         run: xcodegen generate --spec project.yml
