@@ -6,8 +6,9 @@ targets:
     type: application
     platform: iOS
     deploymentTarget: "15.0"
-    bundleId: pl.mobywatel.preview
     sources:
       - path: iOS/App/DesignSystemPreview/DesignSystemPreview
     info:
       path: iOS/App/DesignSystemPreview/DesignSystemPreview/Info.plist
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: pl.mobywatel.preview
