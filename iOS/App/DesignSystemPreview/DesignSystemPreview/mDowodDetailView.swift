@@ -143,7 +143,7 @@ struct mDowodDetailView: View {
           Color.red.frame(width: 16, height: 8)
         }
         .cornerRadius(1)
-        .padding([.bottom, .right], 4)
+        .padding([.bottom, .trailing], 4)
       }
       .overlay(
         RoundedRectangle(cornerRadius: 50)
