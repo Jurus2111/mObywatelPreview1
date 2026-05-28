@@ -10,7 +10,7 @@ on:
 jobs:
   build:
     name: Build iOS App
-    runs-on: macos-14
+    runs-on: macos-15
 
     steps:
       - name: Checkout Code
@@ -18,22 +18,6 @@ jobs:
 
       - name: Install xcodegen
         run: brew install xcodegen
-
-
-      - name: Select Xcode 16
-        run: |
-          echo "=== Dostepne wersje Xcode ==="
-          ls -d /Applications/Xcode*.app
-          
-          if [ -d "/Applications/Xcode_16.app" ]; then
-            echo "Wybrano Xcode_16.app"
-            echo "DEVELOPER_DIR=/Applications/Xcode_16.app/Contents/Developer" >> $GITHUB_ENV
-          elif [ -d "/Applications/Xcode_16.0.app" ]; then
-            echo "Wybrano Xcode_16.0.app"
-            echo "DEVELOPER_DIR=/Applications/Xcode_16.0.app/Contents/Developer" >> $GITHUB_ENV
-          else
-            echo "Xcode 16 nieznaleziony, uzywam domyslnego"
-          fi
 
       - name: Generate Xcode Project
         run: xcodegen generate --spec project.yml
