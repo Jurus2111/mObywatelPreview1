@@ -96,52 +96,53 @@ struct mPrawoJazdyDetailView: View {
     .padding(.top, 16)
   }
 
-  private var licenseCardView: some View {
-    // Driver License Card mockup (Pinkish-Blue gradient)
-    VStack(spacing: 14) {
-      HStack {
-        Text("PRAWO JAZDY")
-          .font(.system(size: 14, weight: .bold))
-          .foregroundColor(Color(red: 35/255, green: 79/255, blue: 153/255))
-        Spacer()
-        Text("RZECZPOSPOLITA POLSKA")
-          .font(.caption2.weight(.semibold))
-          .foregroundColor(.secondary)
-      }
-      .padding(.bottom, 6)
-      
-      HStack(alignment: .top, spacing: 16) {
-        // Photo Area
-        VStack(spacing: 4) {
-          ZStack {
-            Circle()
-              .fill(UserProfile.avatarGradients[avatarIndex % UserProfile.avatarGradients.count])
-              .frame(width: 90, height: 90)
-            
-            Text(UserProfile.avatars[avatarIndex % UserProfile.avatars.count])
-              .font(.system(size: 50))
-              .frame(width: 90, height: 90)
-          }
-          .overlay(
-            RoundedRectangle(cornerRadius: 45)
-              .stroke(Color.blue.opacity(0.2), lineWidth: 1.5)
-          )
-          
-          Text("PL")
-            .font(.caption.weight(.bold))
-            .foregroundColor(Color(red: 35/255, green: 79/255, blue: 153/255))
-        }
+  private var licenseHeader: some View {
+    HStack {
+      Text("PRAWO JAZDY")
+        .font(.system(size: 14, weight: .bold))
+        .foregroundColor(Color(red: 35/255, green: 79/255, blue: 153/255))
+      Spacer()
+      Text("RZECZPOSPOLITA POLSKA")
+        .font(.caption2.weight(.semibold))
+        .foregroundColor(.secondary)
+    }
+    .padding(.bottom, 6)
+  }
+
+  private var licensePhoto: some View {
+    VStack(spacing: 4) {
+      ZStack {
+        Circle()
+          .fill(UserProfile.avatarGradients[avatarIndex % UserProfile.avatarGradients.count])
+          .frame(width: 90, height: 90)
         
-        // Details
-        VStack(alignment: .leading, spacing: 8) {
-          detailItem(label: "1. Nazwisko", value: lastName.uppercased(), isBold: true)
-          detailItem(label: "2. Imię (imiona)", value: firstName.uppercased(), isBold: true)
-          detailItem(label: "3. Data i miejsce urodzenia", value: "\(birthDateString), WARSZAWA")
-          detailItem(label: "4d. PESEL", value: "94081512345") // Simulated matching or default
-          detailItem(label: "5. Numer prawa jazdy", value: driverLicenseNumber)
-        }
+        Text(UserProfile.avatars[avatarIndex % UserProfile.avatars.count])
+          .font(.system(size: 50))
+          .frame(width: 90, height: 90)
       }
+      .overlay(
+        RoundedRectangle(cornerRadius: 45)
+          .stroke(Color.blue.opacity(0.2), lineWidth: 1.5)
+      )
       
+      Text("PL")
+        .font(.caption.weight(.bold))
+        .foregroundColor(Color(red: 35/255, green: 79/255, blue: 153/255))
+    }
+  }
+
+  private var licenseDetails: some View {
+    VStack(alignment: .leading, spacing: 8) {
+      detailItem(label: "1. Nazwisko", value: lastName.uppercased(), isBold: true)
+      detailItem(label: "2. Imię (imiona)", value: firstName.uppercased(), isBold: true)
+      detailItem(label: "3. Data i miejsce urodzenia", value: "\(birthDateString), WARSZAWA")
+      detailItem(label: "4d. PESEL", value: "94081512345") // Simulated matching or default
+      detailItem(label: "5. Numer prawa jazdy", value: driverLicenseNumber)
+    }
+  }
+
+  private var licenseFooter: some View {
+    VStack(spacing: 0) {
       Divider()
         .padding(.vertical, 2)
       
@@ -150,6 +151,20 @@ struct mPrawoJazdyDetailView: View {
         Spacer()
         detailItem(label: "4a. Data wydania", value: "28.05.2020")
       }
+    }
+  }
+
+  private var licenseCardView: some View {
+    // Driver License Card mockup (Pinkish-Blue gradient)
+    VStack(spacing: 14) {
+      licenseHeader
+      
+      HStack(alignment: .top, spacing: 16) {
+        licensePhoto
+        licenseDetails
+      }
+      
+      licenseFooter
     }
     .padding(18)
     .background(

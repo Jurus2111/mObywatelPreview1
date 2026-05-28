@@ -101,82 +101,95 @@ struct mDowodDetailView: View {
     .padding(.top, 16)
   }
 
-  private var identityCardView: some View {
-    // The mDowód ID Card representation
-    VStack(spacing: 16) {
-      // Top Flag and Country Name
-      HStack {
-        VStack(alignment: .leading, spacing: 2) {
-          Text("RZECZPOSPOLITA POLSKA")
-            .font(.caption.weight(.bold))
-            .foregroundColor(Color(red: 12/255, green: 43/255, blue: 107/255))
-          Text("DOWÓD OSOBISTY")
-            .font(.system(size: 10).weight(.medium))
-            .foregroundColor(.secondary)
-        }
-        Spacer()
-        
-        // EU Flag with PL inside
-        ZStack {
-          RoundedRectangle(cornerRadius: 3)
-            .fill(Color.blue)
-            .frame(width: 28, height: 18)
-          Text("PL")
-            .font(.system(size: 10, weight: .bold))
-            .foregroundColor(.white)
-        }
+  private var cardHeader: some View {
+    HStack {
+      VStack(alignment: .leading, spacing: 2) {
+        Text("RZECZPOSPOLITA POLSKA")
+          .font(.caption.weight(.bold))
+          .foregroundColor(Color(red: 12/255, green: 43/255, blue: 107/255))
+        Text("DOWÓD OSOBISTY")
+          .font(.system(size: 10).weight(.medium))
+          .foregroundColor(.secondary)
       }
-      .padding(.bottom, 8)
+      Spacer()
       
-      HStack(alignment: .top, spacing: 16) {
-        // Photo Area
-        VStack(spacing: 8) {
-          ZStack(alignment: .bottomTrailing) {
-            Circle()
-              .fill(UserProfile.avatarGradients[avatarIndex % UserProfile.avatarGradients.count])
-              .frame(width: 100, height: 100)
-            
-            Text(UserProfile.avatars[avatarIndex % UserProfile.avatars.count])
-              .font(.system(size: 55))
-              .frame(width: 100, height: 100)
-            
-            // Small Polish Flag Ribbon overlaying the photo
-            HStack(spacing: 0) {
-              Color.white.frame(width: 16, height: 8)
-              Color.red.frame(width: 16, height: 8)
-            }
-            .cornerRadius(1)
-            .padding([.bottom, .right], 4)
-          }
-          .overlay(
-            RoundedRectangle(cornerRadius: 50)
-              .stroke(Color.gray.opacity(0.2), lineWidth: 1.5)
-          )
-          
-          Text("POL")
-            .font(.caption.weight(.bold))
-            .foregroundColor(.secondary)
-        }
-        
-        // Text details
-        VStack(alignment: .leading, spacing: 10) {
-          detailItem(label: "Nazwisko", value: lastName.uppercased(), isBold: true)
-          detailItem(label: "Imię (imiona)", value: firstName.uppercased(), isBold: true)
-          detailItem(label: "Obywatelstwo", value: "POLSKIE")
-          detailItem(label: "Data urodzenia", value: birthDateString)
-          detailItem(label: "PESEL", value: pesel)
-        }
+      // EU Flag with PL inside
+      ZStack {
+        RoundedRectangle(cornerRadius: 3)
+          .fill(Color.blue)
+          .frame(width: 28, height: 18)
+        Text("PL")
+          .font(.system(size: 10, weight: .bold))
+          .foregroundColor(.white)
       }
+    }
+    .padding(.bottom, 8)
+  }
+
+  private var cardPhoto: some View {
+    VStack(spacing: 8) {
+      ZStack(alignment: .bottomTrailing) {
+        Circle()
+          .fill(UserProfile.avatarGradients[avatarIndex % UserProfile.avatarGradients.count])
+          .frame(width: 100, height: 100)
+        
+        Text(UserProfile.avatars[avatarIndex % UserProfile.avatars.count])
+          .font(.system(size: 55))
+          .frame(width: 100, height: 100)
+        
+        // Small Polish Flag Ribbon overlaying the photo
+        HStack(spacing: 0) {
+          Color.white.frame(width: 16, height: 8)
+          Color.red.frame(width: 16, height: 8)
+        }
+        .cornerRadius(1)
+        .padding([.bottom, .right], 4)
+      }
+      .overlay(
+        RoundedRectangle(cornerRadius: 50)
+          .stroke(Color.gray.opacity(0.2), lineWidth: 1.5)
+      )
       
+      Text("POL")
+        .font(.caption.weight(.bold))
+        .foregroundColor(.secondary)
+    }
+  }
+
+  private var cardDetails: some View {
+    VStack(alignment: .leading, spacing: 10) {
+      detailItem(label: "Nazwisko", value: lastName.uppercased(), isBold: true)
+      detailItem(label: "Imię (imiona)", value: firstName.uppercased(), isBold: true)
+      detailItem(label: "Obywatelstwo", value: "POLSKIE")
+      detailItem(label: "Data urodzenia", value: birthDateString)
+      detailItem(label: "PESEL", value: pesel)
+    }
+  }
+
+  private var cardFooter: some View {
+    VStack(spacing: 0) {
       Divider()
         .padding(.vertical, 4)
       
-      // Expiry details
       HStack {
         detailItem(label: "Numer dokumentu", value: documentNumber)
         Spacer()
         detailItem(label: "Termin ważności", value: "28.05.2036") // 10 years expiry
       }
+    }
+  }
+
+  private var identityCardView: some View {
+    // The mDowód ID Card representation
+    VStack(spacing: 16) {
+      cardHeader
+      
+      HStack(alignment: .top, spacing: 16) {
+        cardPhoto
+        cardDetails
+      }
+      
+      cardFooter
     }
     .padding(18)
     .background(
