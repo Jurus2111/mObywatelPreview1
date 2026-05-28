@@ -19,19 +19,13 @@ jobs:
       - name: Install xcodegen
         run: brew install xcodegen
 
-      - name: Create clean project.yml (fixes CRLF)
+      - name: Debug - List directories
         run: |
-          cat > project.yml << 'PROJECTEOF'
-          name: mObywatelPreview
-          targets:
-            mObywatelPreview:
-              type: application
-              platform: iOS
-              deploymentTarget: "15.0"
-              sources: iOS/App/DesignSystemPreview/DesignSystemPreview
-          PROJECTEOF
-          echo "--- project.yml created ---"
+          xcodegen --version
+          echo "=== project.yml ==="
           cat project.yml
+          echo "=== Source dir ==="
+          ls -la "iOS/App/DesignSystemPreview/DesignSystemPreview/"
 
       - name: Generate Xcode Project
         run: xcodegen generate --spec project.yml
