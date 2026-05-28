@@ -1,0 +1,15 @@
+{
+  "images" : [
+    {
+      "filename" : "IA001_Card_logo_default.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "images" : [
+    {
+      "filename" : "IB016_Legitymacja_radcy_prawnego_card_mini.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
+  }
+}

@@ -1,0 +1,48 @@
+name: Build IPA for AltStore
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build iOS App
+    runs-on: macos-13
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install xcodegen
+        run: brew install xcodegen
+
+      - name: Generate Xcode Project
+        run: xcodegen generate
+
+      - name: Build and Archive (No Code Signing)
+        run: |
+          xcodebuild archive \
+            -project mObywatelPreview.xcodeproj \
+            -scheme mObywatelPreview \
+            -configuration Release \
+            -archivePath build/mObywatelPreview.xcarchive \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGN_ENTITLEMENTS="" \
+            -sdk iphoneos
+
+      - name: Package IPA
+        run: |
+          mkdir -p Payload
+          cp -r build/mObywatelPreview.xcarchive/Products/Applications/mObywatelPreview.app Payload/
+          zip -r mObywatelPreview.ipa Payload
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mObywatelPreview-IPA
+          path: mObywatelPreview.ipa

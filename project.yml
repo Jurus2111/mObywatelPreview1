@@ -1,0 +1,17 @@
+name: mObywatelPreview
+options:
+  bundleIdPrefix: com.preview
+targets:
+  mObywatelPreview:
+    type: application
+    platform: iOS
+    deploymentTarget: "15.0"
+    sources:
+      - path: iOS/App/DesignSystemPreview/DesignSystemPreview
+    info:
+      properties:
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
